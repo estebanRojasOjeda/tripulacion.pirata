@@ -1,92 +1,66 @@
 import { useContext, useEffect } from "react";
-import { Col, Row, Table } from "reactstrap";
+import { Col, Row, Card, CardTitle, CardText, Button, Table } from "reactstrap";
 import axios from 'axios';
-import Swal from 'sweetalert2'; 
+import Swal from 'sweetalert2';
 import { Link } from "react-router-dom";
-import { BsFillEyeFill, BsFillTrashFill, BsPencil } from "react-icons/bs";
-import { AiFillDollarCircle } from "react-icons/ai";
+import { useHistory, useParams } from "react-router-dom";
 import UserContext from "../../context/UserContext";
 
 const List = (props) => {
+    const hist = useHistory();
 
     const context = useContext(UserContext);
-    
+
     useEffect(() => {
-        axios.get('/api/fruit/all')
+        axios.get('/api/pirate/all')
             .then(resp => {
-                props.setFruits(resp.data.fruits);
-            }).catch(err => Swal.fire('Error getting products', 'Error getting the products list', 'error'));
+                props.setPirates(resp.data.pirates);
+                console.log(resp.data)
+            }).catch(err => Swal.fire('Error al traer piratas', 'Error al tratar de listar', 'error'));
     }, []);
 
     const deleteFn = (e, p) => {
         Swal.fire({
-            title: 'Delete Prodcuts',
-            text: 'Are you sure?',
-            confirmButtonText: 'Yes, delete!!',
+            title: 'Eliminar pirata',
+            text: 'Estas seguro/a?',
+            confirmButtonText: 'Si, eliminar!!',
             cancelButtonText: 'No',
             showCancelButton: true,
             icon: 'warning'
         }).then(resp => {
-            if(resp.value) {
-                axios.delete('/api/fruit/'+p._id)
+            if (resp.value) {
+                axios.delete('/api/pirate/' + p._id)
                     .then(resp => {
-                        const prods = props.fruits.filter(prd => prd._id != p._id);
-                        props.setFruits(prods);
-                        Swal.fire('Product deleted', 'Products deleted successful', 'success');
+                        const prods = props.pirates.filter(prd => prd._id != p._id);
+                        props.setPirates(prods);
+                        Swal.fire('Pirata eliminado', 'eliminado de registros', 'success');
                     })
-                    .catch(err => Swal.fire('Product deleted', 'Products deletion failed', 'error'));
+                    .catch(err => Swal.fire('Pirata no eliminado', 'ups, favor contactar al admin', 'error'));
             }
         })
-    } 
-
-    const buy = (e, p) => {
-        axios.patch('/api/fruit/'+p._id)
-            .then(resp => {
-                const data = resp.data;
-                const prds = [...props.fruits];
-                const index = prds.findIndex(prd => prd._id == data._id);
-                prds.splice(index, 1, data);
-                props.setFruits(prds);
-                context.socket.emit('buy_event', data);
-            }).catch(err => Swal.fire('Error buying product', 'Error buying the product', 'error'));
     }
-/*
-    context.socket.on("buy_product_event", data => {
-        const prds = [...props.products];
-        const index = prds.findIndex(prd => prd._id == data._id);
-        prds.splice(index, 1, data);
-        props.setProducts(prds);
-    })
-*/
+
+
     return (
         <Row>
             <Col xs={12}>
-                <Table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th>Ver</th>
-                            <th>Editar</th>
-                            <th>Eliminar</th>
-                            <th>Comprar</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        { props.fruits.map((p, i) => 
-                           { return (<tr key={i}>
-                                <td>{p.name}</td>
-                                <td>{p.price}</td>
-                                <td><Link to={`/main/view/${p._id}`}><BsFillEyeFill/></Link> </td>
-                                <td><Link to={`/main/edit/${p._id}`}><BsPencil/></Link></td>
-                                <td><a onClick={e => deleteFn(e, p)}><BsFillTrashFill/></a></td>
-                                <td><a onClick={e => buy(e, p)}><AiFillDollarCircle/></a></td>
-                            </tr>
-                           )
-                           }
-                        )}
-                    </tbody>
-                </Table>
+             
+
+                    {props.pirates.map((p, i) => {
+                        return (<div key={i} style={{backgroundColor:'white', margin:'10px', padding:'10px', border:'2px solid #000'}}>
+                            <h3>{p.name}</h3>
+                            <td></td>
+                            <Button color="primary" style={{marginRight:'10px'}}><Link to={`/pirates/view/${p._id}`} style={{color:'white'}}>Ver pirata</Link></Button>
+                            <Button color="danger"><a onClick={e => deleteFn(e, p)}>Lanzar por la tabla</a></Button>
+                         
+                        </div>
+                        )
+                    }
+                    )
+                    }
+
+
+                  
             </Col>
         </Row>
     )

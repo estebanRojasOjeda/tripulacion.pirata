@@ -1,12 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
 import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import Swal from "sweetalert2";
 import "./style/register.css";
 
 const initialState = {
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     confirmPassword: ''
@@ -16,8 +16,6 @@ const Register = () => {
 
     const [newUser, setNewUser] = useState(initialState);
     const [errors, setErrors] = useState(initialState);
-
-    const history = useHistory();
 
     const updateFormValue = (e) => {
         const { name, value } = e.target;
@@ -57,15 +55,22 @@ const Register = () => {
                     <Col xs={12}>
                         <FormGroup>
                             <Label>Nombre</Label>
-                            <Input type="tex" name="name" value={newUser.name} onChange={updateFormValue} required />
-                            {errors.name && <span style={{ color: 'red' }}>{errors.name}</span>}
+                            <Input type="tex" name="firstName" value={newUser.firstName} onChange={updateFormValue} required />
+                            {errors.firstName && <span style={{ color: 'red' }}>{errors.firstName}</span>}
+                        </FormGroup>
+                    </Col>
+                    <Col xs={12}>
+                        <FormGroup>
+                            <Label>Apellido</Label>
+                            <Input type="tex" name="lastName" value={newUser.lastName} onChange={updateFormValue} required />
+                            {errors.lastName && <span style={{ color: 'red' }}>{errors.lastName}</span>}
                         </FormGroup>
                     </Col>
                     <Col xs={12}>
                         <FormGroup>
                             <Label>Correo</Label>
-                            <Input type="email" name="email" value={newUser.email} onChange={updateFormValue} required />
-                            {errors.email && <span style={{ color: 'red' }}>{errors.email}</span>}
+                            <Input type="email" name="email" value={newUser.email} onChange={updateFormValue} required/>
+                            {errors.email && <span style={{color: 'red'}}>{errors.email}</span>}
                         </FormGroup>
                     </Col>
                     <Col xs={12}>
@@ -83,8 +88,7 @@ const Register = () => {
                         </FormGroup>
                     </Col>
                     <Col xs={12} className="mt-3">
-                        <Button type="submit">Registrarse!</Button>
-                        <Button type="button" onClick={e => history.push("/")} style={{ marginLeft: '10px' }}>Volver</Button>
+                        <Button type="submit" color="primary">Registrarse!</Button>
                     </Col>
                 </Row>
             </Form>

@@ -1,0 +1,9 @@
+.content{
+    background-color: #dd9221; 
+    margin: 40px;
+    min-height: 800px;
+    width: 90%;
+    border: 3px solid #000000;
+    text-align: center;
+}
+

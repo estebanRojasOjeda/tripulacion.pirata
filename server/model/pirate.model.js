@@ -32,7 +32,7 @@ const PirateSchema = new mongoose.Schema({
     HookHand: {
         required: [true, "No puede ser Nulo"],
         type: Boolean
-    },
+    }
     
 });
 

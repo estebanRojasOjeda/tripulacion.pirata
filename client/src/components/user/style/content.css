@@ -9,7 +9,7 @@
 
 .register{
     text-align: left;
-    background-color: #ffffff;
+    background-color: #ffffff !important;
     min-height: 600px;
     max-width: 500px;
     display: inline-block;
@@ -19,7 +19,7 @@
 
 .login{
     text-align: left;
-    background-color: #ffffff;
+    background-color: #ffffff !important;
     min-height: 400px;
     max-width: 500px;
     display: inline-block;

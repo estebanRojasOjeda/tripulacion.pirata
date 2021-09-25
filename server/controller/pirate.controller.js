@@ -15,7 +15,7 @@ module.exports.createPirate = (req, res) => {
 }
 
 module.exports.findPirates = (req, res) => {
-    Pirate.find({})
+    Pirate.find({}).sort({name:1})
         .then(pirates => res.json({ pirates: pirates }))
         .catch(err => res.json({ message: "Error al listar", error: err }));
 }

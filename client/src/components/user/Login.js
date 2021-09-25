@@ -32,7 +32,7 @@ const Login = () => {
                 if (resp.data.success) {
                     context.setUser(resp.data.user);
                     sessionStorage.setItem('USER_DATA', JSON.stringify(resp.data.user));
-                    history.push('/main');
+                    history.push('/pirates');
                 }
             }).catch(err => {
                 Swal.fire('Error', err.response.data.message, 'error');
@@ -56,7 +56,7 @@ const Login = () => {
                     </FormGroup>
                 </Col>
                 <Col xs={12} className="mt-3">
-                    <Button type="submit">Entrar</Button>
+                    <Button type="submit" color="primary">Entrar</Button>
                 </Col>
             </Row>
         </Form>

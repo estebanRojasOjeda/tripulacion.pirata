@@ -6,6 +6,7 @@ import {
 import { useState } from 'react';
 import UserContext from './context/UserContext';
 import Content from './components/user/Content'
+import Manager from "./components/pirate/Manager";
 
 
 function App() {
@@ -16,6 +17,9 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Content></Content>
+          </Route>
+          <Route path="/pirates">
+            <Manager />
           </Route>
         </Switch>
       </Router>

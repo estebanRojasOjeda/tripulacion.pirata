@@ -34,7 +34,8 @@ module.exports.login = (req, res) => {
                         if (valid) {
                             const payload = {
                                 id: resp._id,
-                                name: resp.name,
+                                firstName: resp.firstName,
+                                lastName: resp.lastName,
                                 email: resp.email
                             };
                             const newToken = jwt.sign(payload, jwtConfig.secret);

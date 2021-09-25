@@ -9,3 +9,9 @@
     border-bottom: 3px solid #000000;
 
 }
+
+.head Button{
+    position: relative;
+    left: 30%;
+
+}
