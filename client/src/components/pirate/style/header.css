@@ -1,0 +1,11 @@
+.head{
+    background-color: rgb(109, 65, 65); 
+    color: #ffffff;
+    min-height: 80px;
+    min-width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    padding: 20px;
+    border-bottom: 3px solid #000000;
+
+}

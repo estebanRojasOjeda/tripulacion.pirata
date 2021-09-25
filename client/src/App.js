@@ -1,10 +1,25 @@
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import { useState } from 'react';
+import UserContext from './context/UserContext';
+import Content from './components/user/Content'
+
 
 function App() {
+  const [user, setUser] = useState({});
   return (
-    <div className="App">
-     
-    </div>
+    <UserContext.Provider value={{ user, setUser }}>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Content></Content>
+          </Route>
+        </Switch>
+      </Router>
+    </UserContext.Provider>
   );
 }
 
